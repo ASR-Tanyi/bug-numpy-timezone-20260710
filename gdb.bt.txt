@@ -1,0 +1,33 @@
+Thread 1 "python3" received signal SIGSEGV, Segmentation fault.
+0x00007fffefb8a8e4 in std::codecvt<wchar_t, char, __mbstate_t>::do_unshift(__mbstate_t&, char*, char*, char*&) const ()
+   from ./build/libtimezone.so
+(gdb) bt
+#0  0x00007fffefb8a8e4 in std::codecvt<wchar_t, char, __mbstate_t>::do_unshift(__mbstate_t&, char*, char*, char*&) const ()
+   from ./build/libtimezone.so
+#1  0x00007fffefb260fa in std::basic_istream<char, std::char_traits<char> >::operator>>(int&) () from ./build/libtimezone.so
+#2  0x00007fffefac53b2 in std::chrono::reload_tzdb() () from ./build/libtimezone.so
+#3  0x00007fffefac642c in std::chrono::tzdb_list::_Node::_S_init_tzdb() () from ./build/libtimezone.so
+#4  0x00007fffefac6499 in std::chrono::get_tzdb_list() () from ./build/libtimezone.so
+#5  0x00007fffefac64df in std::chrono::locate_zone(std::basic_string_view<char, std::char_traits<char> >) ()
+   from ./build/libtimezone.so
+#6  0x00007fffefab3332 in c_to_local (timezone_str=0x7ffff7737f90 "America/New_York", timestamp=0x7fffefc368a0)
+    at /home/ubuntu/timezone.cc:4
+#7  0x00007ffff7afbb16 in ?? () from /lib/x86_64-linux-gnu/libffi.so.8
+#8  0x00007ffff7af83ef in ?? () from /lib/x86_64-linux-gnu/libffi.so.8
+#9  0x00007ffff7afb0be in ffi_call () from /lib/x86_64-linux-gnu/libffi.so.8
+#10 0x00007ffff768911c in ?? () from /usr/lib/python3.12/lib-dynload/_ctypes.cpython-312-x86_64-linux-gnu.so
+#11 0x00007ffff76842af in ?? () from /usr/lib/python3.12/lib-dynload/_ctypes.cpython-312-x86_64-linux-gnu.so
+#12 0x0000000000548f35 in _PyObject_MakeTpCall ()
+#13 0x00000000005d6f09 in _PyEval_EvalFrameDefault ()
+#14 0x00000000005d544b in PyEval_EvalCode ()
+#15 0x00000000006085a2 in ?? ()
+#16 0x00000000006b5033 in ?? ()
+#17 0x00000000006b4d9a in _PyRun_SimpleFileObject ()
+#18 0x00000000006b4bcf in _PyRun_AnyFileObject ()
+#19 0x00000000006bcc35 in Py_RunMain ()
+#20 0x00000000006bc71d in Py_BytesMain ()
+#21 0x00007ffff7c2a1ca in __libc_start_call_main (main=main@entry=0x518880, argc=argc@entry=2, argv=argv@entry=0x7fffffffe3c8)
+    at ../sysdeps/nptl/libc_start_call_main.h:58
+#22 0x00007ffff7c2a28b in __libc_start_main_impl (main=0x518880, argc=2, argv=0x7fffffffe3c8, init=<optimized out>, 
+    fini=<optimized out>, rtld_fini=<optimized out>, stack_end=0x7fffffffe3b8) at ../csu/libc-start.c:360
+#23 0x0000000000657bc5 in _start ()
