@@ -4,13 +4,25 @@ on: [push, workflow_dispatch]
 
 jobs:
   test:
-    name: Test Segfault with numpy
-    runs-on: ubuntu-latest
+    name: OS ${{ matrix.os }} - Python ${{ matrix.python-version }} - GCC ${{ matrix.gcc-version }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         python-version: [3.12, 3.13, 3.14]
-        gcc-version: [13, 14]
+        include:
+          - os: ubuntu-22.04
+            gcc-version: 10
+          - os: ubuntu-22.04
+            gcc-version: 11
+          - os: ubuntu-24.04
+            gcc-version: 12
+          - os: ubuntu-24.04
+            gcc-version: 13
+          - os: ubuntu-24.04
+            gcc-version: 14
+          - os: ubuntu-26.04
+            gcc-version: 15
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -28,7 +40,7 @@ jobs:
           export CXX=g++-${{ matrix.gcc-version }}
           cmake -B build
           cmake --build build
-          ldd build/libtimezone.so
+          ldd build/libin.so
       - name: Run test
         run: |
           python main.py
