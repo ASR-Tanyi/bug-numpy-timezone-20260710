@@ -1,0 +1,6 @@
+{
+    global:
+        c_int_in;
+    local:
+        *;
+};
